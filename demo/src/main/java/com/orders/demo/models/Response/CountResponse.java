@@ -12,6 +12,11 @@ public class CountResponse extends Response {
         super(status, message);
     }
 
+    public CountResponse(boolean status, String message, int productCount) {
+        super(status, message);
+        this.productCount = productCount;
+    }
+
     public int getProductCount() {
         return productCount;
     }

@@ -12,6 +12,11 @@ public class LoginResponse extends Response {
         super(status, message);
     }
 
+    public LoginResponse(boolean status, String message, int customerID) {
+        super(status, message);
+        this.customerID = customerID;
+    }
+
     public int getCustomerID() {
         return customerID;
     }
