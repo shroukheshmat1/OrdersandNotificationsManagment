@@ -2,7 +2,7 @@ package com.orders.demo.models.Response;
 
 public class LoginResponse extends Response {
 
-    private int customerID;
+    private String customerUsername;
 
     public LoginResponse(boolean status) {
         super(status);
@@ -12,13 +12,13 @@ public class LoginResponse extends Response {
         super(status, message);
     }
 
-    public LoginResponse(boolean status, String message, int customerID) {
+    public LoginResponse(boolean status, String message, String customerUsername) {
         super(status, message);
-        this.customerID = customerID;
+        this.customerUsername = customerUsername;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public String getCustomerUsername() {
+        return customerUsername;
     }
 
 }
