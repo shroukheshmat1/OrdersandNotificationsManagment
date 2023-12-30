@@ -1,6 +1,8 @@
-package com.orders.demo.Customer;
+package com.orders.demo.services.Customer;
 
 import com.orders.demo.DB.IDB;
+import com.orders.demo.models.Customer;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,13 +24,13 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public boolean signup(String name, String email , String password, double balance) {
+    public boolean signup(String name, String email, String password, double balance) {
         // Implement logic to check if the user already exists
         if (db.getCustomers().stream().anyMatch(c -> c.getName().equals(name))) {
             return false; // User already exists
         }
 
-        Customer newCustomer = new Customer(name,email, password, balance);
+        Customer newCustomer = new Customer(name, email, password, balance);
         db.addCustomer(newCustomer);
         return true;
     }
