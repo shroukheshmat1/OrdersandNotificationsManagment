@@ -5,16 +5,7 @@ public class StatsResponse extends Response {
     private String topContact;
     private String topTemplate;
 
-    public StatsResponse(boolean status) {
-        super(status);
-    }
-
-    public StatsResponse(boolean status, String message) {
-        super(status, message);
-    }
-
-    public StatsResponse(boolean status, String message, String topContact, String topTemplate) {
-        super(status, message);
+    public StatsResponse(String topContact, String topTemplate) {
         this.topContact = topContact;
         this.topTemplate = topTemplate;
     }
