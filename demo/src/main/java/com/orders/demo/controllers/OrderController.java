@@ -1,9 +1,9 @@
 package com.orders.demo.controllers;
 
+import com.orders.demo.dto.Response.Response;
 import com.orders.demo.models.Order.Order;
 import com.orders.demo.models.Order.OrderRequest.CompoundOrderRequest;
 import com.orders.demo.models.Order.OrderRequest.SimpleOrderRequest;
-import com.orders.demo.models.Response.Response;
 import com.orders.demo.services.Order.OrderService;
 
 import java.util.List;
