@@ -17,6 +17,4 @@ public interface IOrderService {
     Boolean cancelShipping(int orderID);
 
     Order getOrder(int orderID);
-
-    List<Order> getOrders();
 }

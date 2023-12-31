@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,16 +32,18 @@ public class OrderController {
             return new Response(false, "Failed To Create Order");
         return new Response();
     }
-
+    
     @PostMapping("/compound")
     Response createOrder(@RequestBody CompoundOrderRequest orderRequest) {
         if (!orderService.createOrder(orderRequest))
-            return new Response(false, "Failed To Create Order");
+        return new Response(false, "Failed To Create Order");
         return new Response();
     }
-
-    @GetMapping()
-    List<Order> getAll() {
-        return orderService.getOrders();
-    }
+    
+        @PostMapping("/place/{id}")
+        Response placeOrder(@PathVariable int id) {
+            if (!orderService.placeOrder(id))
+                return new Response(false, "Failed To Place Order");
+            return new Response();
+        }
 }

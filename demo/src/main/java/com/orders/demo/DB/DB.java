@@ -17,7 +17,14 @@ import java.util.Queue;
 
 @Service
 public class DB implements IDB {
-    private static List<Customer> customers = new ArrayList<>();
+    private static List<Customer> customers = new ArrayList<>() {
+        {
+            add(new Customer("rana", "123", "123", 10000));
+            add(new Customer("roaa", "123", "123", 10000));
+            add(new Customer("youssef", "123", "123", 10000));
+            add(new Customer("shoruk", "123", "123", 10000));
+        }
+    };
     private static List<Category> category = new ArrayList<>() {
         {
             add(
@@ -154,7 +161,7 @@ public class DB implements IDB {
     @Override
     public Customer getCustomer(String name) {
         for (Customer customer : customers)
-            if (customer.getName() == name)
+            if (customer.getName().equals(name))
                 return customer;
         return null;
     }

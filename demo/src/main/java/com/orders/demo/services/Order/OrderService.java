@@ -26,12 +26,9 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<Order> getOrders() {
-        return database.getOrders();
-    }
-
-    @Override
     public boolean createOrder(OrderRequest orderRequest) {
+        if (customerService.getCustomer(orderRequest.getName()) == null)
+            return false;
         Order order = orderRequest.createOrder(database.getOrders().size());
         if (order == null)
             return false;
@@ -42,16 +39,20 @@ public class OrderService implements IOrderService {
 
     @Override
     public Boolean placeOrder(int orderID) {
-        return false;
-        // Order order = database.getOrder(orderID);
-        // Customer customer = customerService.getCustomer(order.getCustomerUsername());
-        // List<SimpleOrder> orders = order.getCompositeOrders();
-        // for (Order o : orders) {
-        // if (o.getDetails())
-        // }
+        Order order = database.getOrder(orderID);
 
-        // order.setStatus(Status.PLACED);
+        for (Integer orderId : order.getCompositeOrdersIds()) {
+            Order o = getOrder(orderId);
+            Customer customer = customerService.getCustomer(o.getCustomerUsername());
+            if (customer == null)
+                return false;
 
+            if (o.getDetails().getTotalPrice() > customer.getBalance())
+                return false;
+
+        }
+        order.setStatus(Status.PLACED);
+        return true;
     }
 
     @Override
@@ -71,6 +72,6 @@ public class OrderService implements IOrderService {
 
     @Override
     public Order getOrder(int orderID) {
-        return null;
+        return database.getOrder(orderID);
     }
 }

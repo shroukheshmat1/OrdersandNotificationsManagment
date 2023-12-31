@@ -17,4 +17,16 @@ public abstract class OrderRequest {
     }
 
     public abstract Order createOrder(int orderID);
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
 }

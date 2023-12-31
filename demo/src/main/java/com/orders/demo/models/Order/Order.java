@@ -5,10 +5,10 @@ import static com.orders.demo.models.Order.Status.PENDING;
 import java.util.List;
 
 public abstract class Order {
-    private int orderID;
-    private String customerUsername;
-    private Status status;
-    private OrderDetails orderDetails;
+    protected int orderID;
+    protected String customerUsername;
+    protected Status status;
+    protected OrderDetails orderDetails;
 
     public Order(int orderID, String customerUsername, OrderDetails orderDetails) {
         this.orderID = orderID;
@@ -35,5 +35,7 @@ public abstract class Order {
 
     public OrderDetails getDetails() {
         return orderDetails;
-    };
-}
+    }
+
+    public abstract List<Integer> getCompositeOrdersIds();
+};

@@ -1,5 +1,6 @@
 package com.orders.demo.models.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompoundOrder extends Order {
@@ -19,5 +20,14 @@ public class CompoundOrder extends Order {
 
     public List<Order> getCompositeOrders() {
         return compositeOrders;
+    }
+
+    @Override
+    public List<Integer> getCompositeOrdersIds() {
+        List<Integer> orderIds = new ArrayList<>();
+        for (Order o : compositeOrders) {
+            orderIds.add(o.getOrderID());
+        }
+        return orderIds;
     }
 }

@@ -6,7 +6,7 @@ public class Customer {
     private String email;
     private String password;
 
-    public Customer(String name, String password, String email, double balance) {
+    public Customer(String name, String email, String password, double balance) {
         this.name = name;
         this.email = email;
         this.password = password;

@@ -37,8 +37,8 @@ public class CustomerController {
     @PostMapping("/signup")
     public Response signup(@RequestBody Customer customer) {
         // Perform signup
-        boolean success = customerService.signup(customer.getName(),
-                customer.getEmail(), customer.getPassword(), customer.getBalance());
+        boolean success = customerService.signup(customer.getName(), customer.getEmail(), customer.getPassword(),
+                customer.getBalance());
         if (success) {
             return new Response(true, "Signup successful");
         }
