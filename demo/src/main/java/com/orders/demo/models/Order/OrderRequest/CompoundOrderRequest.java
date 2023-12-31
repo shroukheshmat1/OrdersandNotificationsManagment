@@ -30,7 +30,7 @@ public class CompoundOrderRequest extends OrderRequest {
             if (p == null)
                 return null;
 
-            totalPrice += p.getPrice();
+            totalPrice += p.getPrice() * item.getQuantity();
         }
 
         OrderDetails details = new OrderDetails(totalPrice, location, new Date());

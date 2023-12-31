@@ -14,11 +14,4 @@ public class SimpleOrder extends Order {
     public List<OrderItem> getOrderItems() {
         return items;
     }
-
-    @Override
-    public List<Order> getCompositeOrders() {
-        List<Order> orders = new ArrayList<>();
-        orders.add(this);
-        return orders;
-    };
 }

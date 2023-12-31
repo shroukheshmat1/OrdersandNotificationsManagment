@@ -17,8 +17,7 @@ public class CompoundOrder extends Order {
             order.setStatus(status);
     }
 
-    @Override
-    public List<Order> getCompositeOrders() {
-        return compositeOrders;
+    public void add(Order order) {
+        compositeOrders.add(order);
     }
 }

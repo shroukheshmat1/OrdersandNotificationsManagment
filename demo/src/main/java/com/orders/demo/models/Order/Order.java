@@ -36,6 +36,4 @@ public abstract class Order {
     public OrderDetails getDetails() {
         return orderDetails;
     };
-
-    public abstract List<Order> getCompositeOrders();
 }
