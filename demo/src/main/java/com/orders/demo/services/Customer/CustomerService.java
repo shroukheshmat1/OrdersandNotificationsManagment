@@ -20,10 +20,10 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public Customer login(String email, String password) {
+    public Customer login(String name, String password) {
         // Implement logic to check if the user exists in the database
         return database.getCustomers().stream()
-                .filter(c -> c.getEmail().equals(email) && c.getPassword().equals(password))
+                .filter(c -> c.getName().equals(name) && c.getPassword().equals(password))
                 .findFirst()
                 .orElse(null);
     }

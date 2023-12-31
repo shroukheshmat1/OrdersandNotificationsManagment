@@ -1,9 +1,12 @@
 package com.orders.demo.controllers;
 
+import com.orders.demo.dto.Request.LoginRequest;
+import com.orders.demo.dto.Response.LoginResponse;
+import com.orders.demo.dto.Response.Response;
 import com.orders.demo.models.Customer;
 import com.orders.demo.models.Order.Order;
-import com.orders.demo.models.Response.LoginResponse;
-import com.orders.demo.models.Response.Response;
+import com.orders.demo.dto.Response.LoginResponse;
+import com.orders.demo.dto.Response.Response;
 import com.orders.demo.services.Customer.ICustomerService;
 
 import java.util.List;
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customers")
 public class CustomerController {
 
     @Autowired
@@ -25,12 +28,11 @@ public class CustomerController {
     }
 
     @GetMapping("/check")
-    public Response checkUser(@RequestParam String email, @RequestParam String password) {
+    public Response checkUser(@RequestBody LoginRequest request) {
         // Perform login
-        String name = customerService.login(email, password).getName();
-        if (!name.isEmpty()) {
+        String name = customerService.login(request.getName(), request.getPassword()).getName();
+        if (!name.isEmpty())
             return new LoginResponse(name);
-        }
         return new Response(false, "Invalid credentials");
     }
 
@@ -38,9 +40,8 @@ public class CustomerController {
     public Response signup(@RequestBody Customer customer) {
         // Perform signup
         boolean success = customerService.signup(customer);
-        if (success) {
+        if (success)
             return new Response(true, "Signup successful");
-        }
         return new Response(false, "User already exists");
     }
 
