@@ -12,6 +12,7 @@ public interface INotificationService {
     boolean createNotification(int OrderID, NotificationType type);
 
     Queue<Notifcation> getNotifications();
+    boolean queueNotification(Notifcation notifcation);
 
     void scheduledSendingTask();
 

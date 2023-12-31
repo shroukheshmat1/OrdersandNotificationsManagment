@@ -74,7 +74,8 @@ public class NotifcationService implements INotificationService {
         return result;
     }
 
-    private boolean queueNotification(Notifcation notifcation) {
+    @Override
+    public boolean queueNotification(Notifcation notifcation) {
         database.addNotifcation(notifcation);
         return true;
     }
