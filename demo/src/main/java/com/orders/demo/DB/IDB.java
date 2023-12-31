@@ -7,6 +7,8 @@ import com.orders.demo.models.Category;
 import com.orders.demo.models.Product;
 import com.orders.demo.models.Notification.Notifcation;
 import com.orders.demo.models.Customer;
+import org.springframework.stereotype.Component;
+
 
 public interface IDB {
     List<Customer> getCustomers();

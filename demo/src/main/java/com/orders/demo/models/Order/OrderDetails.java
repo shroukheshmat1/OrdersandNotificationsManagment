@@ -6,23 +6,23 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderDetails {
-    private List<Product> products;
+    private List<OrderItem> items;
     private double totalPrice;
     private String orderLocation;
     private Date placementDate;
 
-    public OrderDetails(List<Product> products, double totalPrice, String orderLocation, Date placementDate) {
-        this.products = products;
+    public OrderDetails(List<OrderItem> items, double totalPrice, String orderLocation, Date placementDate) {
+        this.items = items;
         this.totalPrice = totalPrice;
         this.orderLocation = orderLocation;
         this.placementDate = placementDate;
     }
-    public List<Product> getProducts() {
-        return products;
+    public List<OrderItem> getItems() {
+        return items;
     }
 
     public void setProducts(List<Product> products) {
-        this.products = products;
+        this.items = items;
     }
 
 
