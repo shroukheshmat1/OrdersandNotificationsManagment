@@ -3,6 +3,7 @@ package com.orders.demo.DB;
 import com.orders.demo.models.Category;
 import com.orders.demo.models.Product;
 import com.orders.demo.models.Notification.Notifcation;
+import com.orders.demo.models.Order.Order;
 
 import org.springframework.stereotype.Service;
 
@@ -65,6 +66,7 @@ public class DB implements IDB {
     };
 
     private static Queue<Notifcation> notificationQueue = new ArrayDeque<>();
+    private static List<Order> orders = new ArrayList<>();
 
     @Override
     public List<Customer> getCustomers() {
@@ -99,7 +101,7 @@ public class DB implements IDB {
     public List<Product> getCategoryProducts(String categoryName) {
         List<Product> products = new ArrayList<>();
         Category category1 = getCategory(categoryName);
-        if (category1 != null && Objects.equals(category1.getCategoryName(), categoryName)){
+        if (category1 != null && Objects.equals(category1.getCategoryName(), categoryName)) {
             products.addAll(category1.getProducts());
         }
         return products;
@@ -108,8 +110,8 @@ public class DB implements IDB {
     @Override
     public Product getProduct(String productSerialNo) {
         List<Product> products = getProducts();
-        for (Product product: products){
-            if (Objects.equals(product.getSerialNumber(), productSerialNo)){
+        for (Product product : products) {
+            if (Objects.equals(product.getSerialNumber(), productSerialNo)) {
                 return product;
             }
         }
@@ -129,5 +131,31 @@ public class DB implements IDB {
     @Override
     public void addNotifcation(Notifcation notifcation) {
         notificationQueue.add(notifcation);
+    }
+
+    @Override
+    public Order getOrder(int orderID) {
+        for (Order order : orders)
+            if (order.getOrderID() == orderID)
+                return order;
+        return null;
+    }
+
+    @Override
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+
+    @Override
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    @Override
+    public Customer getCustomer(String name) {
+        for (Customer customer : customers)
+            if (customer.getName() == name)
+                return customer;
+        return null;
     }
 }

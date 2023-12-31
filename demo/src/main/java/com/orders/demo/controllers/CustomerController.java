@@ -1,12 +1,17 @@
 package com.orders.demo.controllers;
 
 import com.orders.demo.models.Customer;
+import com.orders.demo.models.Order.Order;
 import com.orders.demo.models.Response.LoginResponse;
 import com.orders.demo.models.Response.Response;
 import com.orders.demo.services.Customer.ICustomerService;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/customer")
@@ -38,5 +43,10 @@ public class CustomerController {
             return new Response(true, "Signup successful");
         }
         return new Response(false, "User already exists");
+    }
+
+    @GetMapping("{name}/orders")
+    public List<Order> getOrders(@PathVariable String name) {
+        return customerService.getCustomerOrders(name);
     }
 }

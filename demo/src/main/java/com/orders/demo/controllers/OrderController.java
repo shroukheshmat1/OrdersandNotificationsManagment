@@ -1,17 +1,19 @@
 package com.orders.demo.controllers;
 
-import com.orders.demo.models.Order.OrderItem;
-import com.orders.demo.models.Order.SimpleOrderRequest;
+import com.orders.demo.models.Order.Order;
+import com.orders.demo.models.Order.OrderRequest.CompoundOrderRequest;
+import com.orders.demo.models.Order.OrderRequest.SimpleOrderRequest;
 import com.orders.demo.models.Response.Response;
 import com.orders.demo.services.Order.OrderService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -23,10 +25,22 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/simple")
-    Response createOrder(@PathVariable String customerName, @PathVariable List<OrderItem> orderItems, @PathVariable String Location){
-//        Boolean result = orderService.createOrder(customerName, orderItems, Location);
+    @PostMapping("/simple")
+    Response createOrder(@RequestBody SimpleOrderRequest orderRequest) {
+        if (!orderService.createOrder(orderRequest))
+            return new Response(false, "Failed To Create Order");
+        return new Response();
+    }
 
-        return null;
+    @PostMapping("/compound")
+    Response createOrder(@RequestBody CompoundOrderRequest orderRequest) {
+        if (!orderService.createOrder(orderRequest))
+            return new Response(false, "Failed To Create Order");
+        return new Response();
+    }
+
+    @GetMapping()
+    List<Order> getAll() {
+        return orderService.getOrders();
     }
 }

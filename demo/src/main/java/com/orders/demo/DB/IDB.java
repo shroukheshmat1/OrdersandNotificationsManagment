@@ -6,11 +6,12 @@ import java.util.Queue;
 import com.orders.demo.models.Category;
 import com.orders.demo.models.Product;
 import com.orders.demo.models.Notification.Notifcation;
+import com.orders.demo.models.Order.Order;
 import com.orders.demo.models.Customer;
-import org.springframework.stereotype.Component;
-
 
 public interface IDB {
+    Customer getCustomer(String name);
+
     List<Customer> getCustomers();
 
     Category getCategory(String categoryName);
@@ -28,4 +29,11 @@ public interface IDB {
     Queue<Notifcation> getNotifications();
 
     void addNotifcation(Notifcation notifcation);
+
+    Order getOrder(int orderID);
+
+    List<Order> getOrders();
+
+    void addOrder(Order order);
+
 }
