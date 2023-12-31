@@ -10,8 +10,8 @@ public class CountResponse extends Response {
     private List<Product> products;
 
 
-    public CountResponse(List<Product> products, int productCount) {
-        super();
+    public CountResponse(boolean status, String message, List<Product> products, int productCount) {
+        super(status, message);
         this.products = products;
         this.productCount = productCount;
     }

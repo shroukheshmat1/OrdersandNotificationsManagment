@@ -96,21 +96,19 @@ public class DB implements IDB {
     @Override
     public List<Product> getCategoryProducts(String categoryName) {
         List<Product> products = new ArrayList<>();
-        for (Category category1: category){
-            if (Objects.equals(category1.getCategoryName(), categoryName)){
-                products.addAll(category1.getProducts());
-            }
+        Category category1 = getCategory(categoryName);
+        if (category1 != null && Objects.equals(category1.getCategoryName(), categoryName)){
+            products.addAll(category1.getProducts());
         }
         return products;
     }
 
     @Override
     public Product getProduct(String productSerialNo) {
-        for (Category category1: category){
-            for (Product product: category1.getProducts()){
-                if (Objects.equals(product.getSerialNumber(), productSerialNo)){
-                    return product;
-                }
+        List<Product> products = getProducts();
+        for (Product product: products){
+            if (Objects.equals(product.getSerialNumber(), productSerialNo)){
+                return product;
             }
         }
         return null;

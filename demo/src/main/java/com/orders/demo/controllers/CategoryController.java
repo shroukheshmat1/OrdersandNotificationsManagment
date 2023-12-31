@@ -35,7 +35,10 @@ public class CategoryController {
     @GetMapping("/categories/{categoryName}")
     Response getProductCount(@PathVariable String categoryName){
         List<Product> products = categoryService.getCategoryProducts(categoryName);
+        if (products.isEmpty()){
+            return new Response(false, "There is no category with the name: " + categoryName);
+        }
         int count = categoryService.getProductCount(categoryName);
-        return new CountResponse(products, count);
+        return new CountResponse(true, "Category is found.", products, count);
     }
 }
