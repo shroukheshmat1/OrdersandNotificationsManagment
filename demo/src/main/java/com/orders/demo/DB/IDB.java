@@ -1,5 +1,6 @@
 package com.orders.demo.DB;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 
@@ -37,5 +38,15 @@ public interface IDB {
     void addOrder(Order order);
 
     double getDeliveryFee();
+
+    Integer maxCancellationPeriod();
+
+    Date getPlacementTime(int orderId);
+
+    Date getShippingTime(int orderId);
+
+    void addPlacementTime(int orderId, Date date);
+
+    void addShippingTime(int orderId, Date date);
 
 }

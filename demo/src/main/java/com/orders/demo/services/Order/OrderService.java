@@ -2,22 +2,21 @@ package com.orders.demo.services.Order;
 
 import com.orders.demo.DB.IDB;
 import com.orders.demo.models.Customer;
-import com.orders.demo.models.Notification.EmailNotification;
 import com.orders.demo.models.Notification.NotificationType;
 import com.orders.demo.models.Order.Order;
 import com.orders.demo.models.Order.Status;
 import com.orders.demo.models.Order.OrderRequest.OrderRequest;
-import com.orders.demo.models.Template.Template;
 import com.orders.demo.services.Customer.ICustomerService;
 
 import com.orders.demo.services.Notification.INotificationService;
+
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService implements IOrderService {
-    private int time;
     @Autowired
     private final IDB database;
     @Autowired
@@ -29,7 +28,6 @@ public class OrderService implements IOrderService {
         this.database = database;
         this.notificationService = notificationService;
         this.customerService = customerService;
-        this.time = 1;
     }
 
     @Override
@@ -63,8 +61,10 @@ public class OrderService implements IOrderService {
             Customer customer = customerService.getCustomer(o.getCustomerUsername());
             customer.setBalance(customer.getBalance() - o.getDetails().getTotalPrice());
         }
+
+        database.addPlacementTime(orderID, new Date());
         order.setStatus(Status.PLACED);
-        notificationService.createNotification(orderID, NotificationType.EMAIL);
+        notificationService.createNotification(orderID, NotificationType.SMS);
         return true;
     }
 
@@ -87,13 +87,21 @@ public class OrderService implements IOrderService {
             Customer customer = customerService.getCustomer(o.getCustomerUsername());
             customer.setBalance(customer.getBalance() - o.getDetails().getDeliveryFee());
         }
+
+        database.addShippingTime(orderID, new Date());
         order.setStatus(Status.SHIPPED);
+        notificationService.createNotification(orderID, NotificationType.SMS);
         return true;
     }
 
     @Override
     public Boolean cancelShipping(int orderID) {
         Order order = getOrder(orderID);
+
+        if (new Date().getTime() - database.getShippingTime(orderID).getTime() > database.maxCancellationPeriod()) {
+            return false;
+        }
+
         if (order == null || order.getStatus() != Status.SHIPPED)
             return false;
         for (Order o : order.getCompositeOrders()) {
@@ -110,6 +118,11 @@ public class OrderService implements IOrderService {
     @Override
     public Boolean cancelPlacement(int orderID) {
         Order order = getOrder(orderID);
+
+        if (new Date().getTime() - database.getPlacementTime(orderID).getTime() > database.maxCancellationPeriod()) {
+            return false;
+        }
+
         if (order == null || order.getStatus() != Status.PLACED)
             return false;
         for (Order o : order.getCompositeOrders()) {

@@ -57,14 +57,14 @@ public class OrderController {
     @PostMapping("/cancelShipping/{id}")
     Response cancelShipping(@PathVariable int id) {
         if (!orderService.cancelShipping(id))
-            return new Response(false, "Failed To Ship Order");
+            return new Response(false, "Can't Cancel Shipping");
         return new Response();
     }
 
     @PostMapping("/cancelPlacement/{id}")
     Response cancelPlacement(@PathVariable int id) {
         if (!orderService.cancelPlacement(id))
-            return new Response(false, "Failed To Ship Order");
+            return new Response(false, "Can't Cancel Placement");
         return new Response();
     }
 }

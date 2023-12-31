@@ -11,7 +11,10 @@ import com.orders.demo.models.Customer;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
 
@@ -74,6 +77,32 @@ public class DB implements IDB {
 
     private static Queue<Notifcation> notificationQueue = new ArrayDeque<>();
     private static List<Order> orders = new ArrayList<>();
+
+    private static Map<Integer, Date> placementTimeMap = new HashMap<>();
+    private static Map<Integer, Date> shipmentTimeMap = new HashMap<>();
+
+    @Override
+    public Date getPlacementTime(int orderId) {
+        return placementTimeMap.get(orderId);
+    }
+
+    @Override
+    public Date getShippingTime(int orderId) {
+        return shipmentTimeMap.get(orderId);
+    }
+
+    public void addPlacementTime(int orderId, Date date) {
+        placementTimeMap.put(orderId, date);
+    }
+
+    public void addShippingTime(int orderId, Date date) {
+        shipmentTimeMap.put(orderId, date);
+    }
+
+    @Override
+    public Integer maxCancellationPeriod() {
+        return 30000;
+    }
 
     @Override
     public List<Customer> getCustomers() {
@@ -170,4 +199,5 @@ public class DB implements IDB {
     public double getDeliveryFee() {
         return 100;
     }
+
 }
