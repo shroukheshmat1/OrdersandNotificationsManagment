@@ -8,11 +8,13 @@ import com.orders.demo.services.Category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired
@@ -23,17 +25,17 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    List<Category> getAllCategories(){
+    List<Category> getAllCategories() {
         return categoryService.getCategories();
     }
 
     @GetMapping("/products")
-    List<Product> getProducts(){
+    List<Product> getProducts() {
         return categoryService.getAllProducts();
     }
 
     @GetMapping("/categories/{categoryName}")
-    Response getProductCount(@PathVariable String categoryName){
+    Response getProductCount(@PathVariable String categoryName) {
         List<Product> products = categoryService.getCategoryProducts(categoryName);
         if (products.isEmpty()){
             return new Response(false, "There is no category with the name: " + categoryName);

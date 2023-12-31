@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoryService implements ICategoryService{
-    private final IDB database;
+public class CategoryService implements ICategoryService {
 
     @Autowired
+    private final IDB database;
+
     public CategoryService(IDB database) {
         this.database = database;
     }
@@ -37,7 +38,7 @@ public class CategoryService implements ICategoryService{
         int counter = 0;
         Category category = database.getCategory(categoryName);
         List<Product> products = category.getProducts();
-        for (Product product: products){
+        for (Product product : products) {
             counter += product.getStock();
         }
         return counter;
