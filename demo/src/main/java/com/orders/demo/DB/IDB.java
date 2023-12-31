@@ -36,4 +36,6 @@ public interface IDB {
 
     void addOrder(Order order);
 
+    double getDeliveryFee();
+
 }

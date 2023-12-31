@@ -32,18 +32,25 @@ public class OrderController {
             return new Response(false, "Failed To Create Order");
         return new Response();
     }
-    
+
     @PostMapping("/compound")
     Response createOrder(@RequestBody CompoundOrderRequest orderRequest) {
         if (!orderService.createOrder(orderRequest))
-        return new Response(false, "Failed To Create Order");
+            return new Response(false, "Failed To Create Order");
         return new Response();
     }
-    
-        @PostMapping("/place/{id}")
-        Response placeOrder(@PathVariable int id) {
-            if (!orderService.placeOrder(id))
-                return new Response(false, "Failed To Place Order");
-            return new Response();
-        }
+
+    @PostMapping("/place/{id}")
+    Response placeOrder(@PathVariable int id) {
+        if (!orderService.placeOrder(id))
+            return new Response(false, "Failed To Place Order");
+        return new Response();
+    }
+
+    @PostMapping("/ship/{id}")
+    Response shipOrder(@PathVariable int id) {
+        if (!orderService.shipOrder(id))
+            return new Response(false, "Failed To Ship Order");
+        return new Response();
+    }
 }

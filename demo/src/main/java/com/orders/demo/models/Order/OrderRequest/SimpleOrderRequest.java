@@ -19,15 +19,15 @@ public class SimpleOrderRequest extends OrderRequest {
     @Override
     public Order createOrder(int orderID) {
         double totalPrice = 0;
-        IDB db = new DB();
+        IDB database = new DB();
         for (OrderItem item : items) {
-            Product p = db.getProduct(item.getSerialNo());
+            Product p = database.getProduct(item.getSerialNo());
             if (p == null)
                 return null;
 
             totalPrice += p.getPrice() * item.getQuantity();
         }
-        OrderDetails details = new OrderDetails(totalPrice, location, new Date());
+        OrderDetails details = new OrderDetails(totalPrice, database.getDeliveryFee(), location, new Date());
         return new SimpleOrder(orderID, name, details, items);
     }
 }

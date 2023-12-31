@@ -24,16 +24,17 @@ public class CompoundOrderRequest extends OrderRequest {
     @Override
     public Order createOrder(int orderID) {
         double totalPrice = 0;
-        IDB db = new DB();
+        IDB database = new DB();
         for (OrderItem item : items) {
-            Product p = db.getProduct(item.getSerialNo());
+            Product p = database.getProduct(item.getSerialNo());
             if (p == null)
                 return null;
 
             totalPrice += p.getPrice() * item.getQuantity();
         }
 
-        OrderDetails details = new OrderDetails(totalPrice, location, new Date());
+        OrderDetails details = new OrderDetails(totalPrice, database.getDeliveryFee(), location,
+                new Date());
         Order mainOrder = new SimpleOrder(orderID, name, details, items);
 
         if (orderIds == null)
@@ -42,7 +43,7 @@ public class CompoundOrderRequest extends OrderRequest {
         List<Order> orders = new ArrayList<>();
         orders.add(mainOrder);
         for (Integer subOrderID : orderIds) {
-            Order o = db.getOrder(subOrderID);
+            Order o = database.getOrder(subOrderID);
             if (o == null)
                 return null;
             if (o.getStatus() != mainOrder.getStatus())
@@ -54,7 +55,11 @@ public class CompoundOrderRequest extends OrderRequest {
         for (Order o : orders)
             compoudPrice += o.getDetails().getTotalPrice();
 
-        OrderDetails compoundDetails = new OrderDetails(compoudPrice, details.getOrderLocation(),
+        for (Order o : orders)
+            o.getDetails().setDeliveryFee(database.getDeliveryFee() / (orders.size()));
+
+        OrderDetails compoundDetails = new OrderDetails(compoudPrice, database.getDeliveryFee(),
+                details.getOrderLocation(),
                 details.getPlacementDate());
         return new CompoundOrder(orderID, name, compoundDetails, orders);
     }

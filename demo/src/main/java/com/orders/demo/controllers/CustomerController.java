@@ -45,8 +45,13 @@ public class CustomerController {
         return new Response(false, "User already exists");
     }
 
-    @GetMapping("{name}/orders")
+    @GetMapping("/{name}/orders")
     public List<Order> getOrders(@PathVariable String name) {
         return customerService.getCustomerOrders(name);
+    }
+
+    @GetMapping("/{name}")
+    public Customer getCustomer(@PathVariable String name) {
+        return customerService.getCustomer(name);
     }
 }

@@ -165,4 +165,9 @@ public class DB implements IDB {
                 return customer;
         return null;
     }
+
+    @Override
+    public double getDeliveryFee() {
+        return 100;
+    }
 }
