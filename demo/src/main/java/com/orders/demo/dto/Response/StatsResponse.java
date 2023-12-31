@@ -1,4 +1,4 @@
-package com.orders.demo.models.Response;
+package com.orders.demo.dto.Response;
 
 public class StatsResponse extends Response {
 
