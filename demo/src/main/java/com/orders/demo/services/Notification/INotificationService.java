@@ -1,6 +1,6 @@
 package com.orders.demo.services.Notification;
 
-import java.util.List;
+import java.util.Queue;
 
 import org.springframework.stereotype.Service;
 
@@ -9,11 +9,9 @@ import com.orders.demo.models.Notification.NotificationType;
 
 @Service
 public interface INotificationService {
-    Notifcation createNotification(int OrderID, NotificationType type);
+    boolean createNotification(int OrderID, NotificationType type);
 
-    List<Notifcation> getNotifications();
+    Queue<Notifcation> getNotifications();
 
-    boolean queueNotification(Notifcation notifcation);
-
-    boolean scheduledSendingTask();
+    void scheduledSendingTask();
 }
