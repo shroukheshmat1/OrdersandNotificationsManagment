@@ -3,6 +3,8 @@ package com.orders.demo.models.Order;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class SimpleOrder extends Order {
     private List<OrderItem> items;
 
@@ -15,10 +17,14 @@ public class SimpleOrder extends Order {
         return items;
     }
 
+    @JsonIgnore
     @Override
-    public List<Integer> getCompositeOrdersIds() {
-        List<Integer> compositeOrders = new ArrayList<>();
-        compositeOrders.add(orderID);
-        return compositeOrders;
+    public List<Order> getCompositeOrders() {
+        Order tempOrder = this;
+        return new ArrayList<>() {
+            {
+                add(tempOrder);
+            }
+        };
     }
 }

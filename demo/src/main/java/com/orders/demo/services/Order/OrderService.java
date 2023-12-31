@@ -41,8 +41,7 @@ public class OrderService implements IOrderService {
     public Boolean placeOrder(int orderID) {
         Order order = database.getOrder(orderID);
 
-        for (Integer orderId : order.getCompositeOrdersIds()) {
-            Order o = getOrder(orderId);
+        for (Order o : order.getCompositeOrders()) {
             Customer customer = customerService.getCustomer(o.getCustomerUsername());
             if (customer == null)
                 return false;
@@ -72,6 +71,6 @@ public class OrderService implements IOrderService {
 
     @Override
     public Order getOrder(int orderID) {
-        return database.getOrder(orderID);
+        return null;
     }
 }

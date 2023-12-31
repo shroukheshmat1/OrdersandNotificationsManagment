@@ -1,7 +1,8 @@
 package com.orders.demo.models.Order;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CompoundOrder extends Order {
     private List<Order> compositeOrders;
@@ -18,16 +19,8 @@ public class CompoundOrder extends Order {
             order.setStatus(status);
     }
 
+    @Override
     public List<Order> getCompositeOrders() {
         return compositeOrders;
-    }
-
-    @Override
-    public List<Integer> getCompositeOrdersIds() {
-        List<Integer> orderIds = new ArrayList<>();
-        for (Order o : compositeOrders) {
-            orderIds.add(o.getOrderID());
-        }
-        return orderIds;
     }
 }

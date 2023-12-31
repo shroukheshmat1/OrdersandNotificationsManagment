@@ -37,5 +37,5 @@ public abstract class Order {
         return orderDetails;
     }
 
-    public abstract List<Integer> getCompositeOrdersIds();
+    public abstract List<Order> getCompositeOrders();
 };
