@@ -27,7 +27,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/check")
+    @PostMapping("/check")
     public Response checkUser(@RequestBody LoginRequest request) {
         // Perform login
         String name = customerService.login(request.getName(), request.getPassword()).getName();
@@ -42,7 +42,14 @@ public class CustomerController {
         boolean success = customerService.signup(customer);
         if (success)
             return new Response(true, "Signup successful");
-        return new Response(false, "User already exists");
+        return new Response(false, "Something Went Wrong");
+    }
+
+    @PostMapping("/changeLanguage/{name}/{language}")
+    public Response changeLanguge(@PathVariable String name, @PathVariable String language) {
+        if (customerService.changeLanguge(name, language))
+            return new Response(true, "Language Changed");
+        return new Response(false, "Check Customer Name");
     }
 
     @GetMapping("/{name}/orders")

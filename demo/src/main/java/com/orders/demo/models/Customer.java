@@ -7,18 +7,16 @@ public class Customer {
     private double balance;
     private String email;
     private String phoneNumber;
-
     private String password;
-    private Language preferredLanguge;
+    private Language preferredLanguage;
 
-    public Customer(String name, String email, String phoneNumber, String password, double balance,
-            Language preferredLanguage) {
+    public Customer(String name, String email, String phoneNumber, String password, double balance) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.balance = balance;
-        this.preferredLanguge = preferredLanguage;
+        this.preferredLanguage = Language.ENGLISH;
     }
 
     public String getName() {
@@ -43,7 +41,11 @@ public class Customer {
     }
 
     public Language getPreferredLanguage() {
-        return preferredLanguge;
+        return preferredLanguage;
+    }
+
+    public void setPreferredLanguge(Language preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
     }
 
     public String getPhoneNumber() {

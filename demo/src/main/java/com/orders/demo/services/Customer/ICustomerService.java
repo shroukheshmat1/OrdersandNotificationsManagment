@@ -15,4 +15,6 @@ public interface ICustomerService {
 
     List<Order> getCustomerOrders(String name);
 
+    boolean changeLanguge(String name, String language);
+
 }

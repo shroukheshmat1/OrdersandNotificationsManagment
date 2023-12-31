@@ -31,6 +31,17 @@ public class CustomerService implements ICustomerService {
     @Override
     public boolean signup(Customer customer) {
         // Implement logic to check if the user already exists
+        if (customer.getName() == null)
+            return false;
+        if (customer.getEmail() == null)
+            return false;
+        if (customer.getPassword() == null)
+            return false;
+        if (customer.getPhoneNumber() == null)
+            return false;
+        if (customer.getBalance() == 0)
+            return false;
+
         if (database.getCustomers().stream().anyMatch(c -> c.getName().equals(customer.getName()))) {
             return false; // User already exists
         }
@@ -51,5 +62,14 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer getCustomer(String name) {
         return database.getCustomer(name);
+    }
+
+    @Override
+    public boolean changeLanguge(String name, String language) {
+        Customer customer = database.getCustomer(name);
+        if (customer == null)
+            return false;
+        customer.setPreferredLanguge(Language.valueOf(language.toUpperCase()));
+        return true;
     }
 }
