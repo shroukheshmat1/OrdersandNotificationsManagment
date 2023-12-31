@@ -3,6 +3,7 @@ package com.orders.demo.services.Customer;
 import com.orders.demo.DB.IDB;
 import com.orders.demo.models.Customer;
 import com.orders.demo.models.Order.Order;
+import com.orders.demo.models.Template.Language;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +29,12 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public boolean signup(String name, String email, String password, double balance) {
+    public boolean signup(Customer customer) {
         // Implement logic to check if the user already exists
-        if (database.getCustomers().stream().anyMatch(c -> c.getName().equals(name))) {
+        if (database.getCustomers().stream().anyMatch(c -> c.getName().equals(customer.getName()))) {
             return false; // User already exists
         }
-
-        Customer newCustomer = new Customer(name, email, password, balance);
-        database.addCustomer(newCustomer);
+        database.addCustomer(customer);
         return true;
     }
 

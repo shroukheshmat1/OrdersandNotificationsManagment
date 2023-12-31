@@ -4,6 +4,7 @@ import com.orders.demo.models.Category;
 import com.orders.demo.models.Product;
 import com.orders.demo.models.Notification.Notifcation;
 import com.orders.demo.models.Order.Order;
+import com.orders.demo.models.Template.Language;
 
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,10 @@ import java.util.Queue;
 public class DB implements IDB {
     private static List<Customer> customers = new ArrayList<>() {
         {
-            add(new Customer("rana", "123", "123", 10000));
-            add(new Customer("roaa", "123", "123", 10000));
-            add(new Customer("youssef", "123", "123", 10000));
-            add(new Customer("shoruk", "123", "123", 10000));
+            add(new Customer("rana", "123", "123", "123", 10000, Language.ENGLISH));
+            add(new Customer("roaa", "123", "123", "123", 10000, Language.ENGLISH));
+            add(new Customer("youssef", "123", "123", "123", 10000, Language.ENGLISH));
+            add(new Customer("shrouk", "123", "123", "123", 10000, Language.FRENCH));
         }
     };
     private static List<Category> category = new ArrayList<>() {
@@ -198,6 +199,19 @@ public class DB implements IDB {
     @Override
     public double getDeliveryFee() {
         return 100;
+    }
+
+    private static Map<String, Integer> templateCounter = new HashMap<>();
+    private static Map<String, Integer> contactCounter = new HashMap<>();
+
+    @Override
+    public Map<String, Integer> getTemplateCounter() {
+        return templateCounter;
+    }
+
+    @Override
+    public Map<String, Integer> getContactCounter() {
+        return contactCounter;
     }
 
 }

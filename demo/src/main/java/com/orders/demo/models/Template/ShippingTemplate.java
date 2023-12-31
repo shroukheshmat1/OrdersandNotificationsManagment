@@ -21,4 +21,9 @@ public class ShippingTemplate extends Template {
         return String.format(textLanguages.get(language), customerName, location, deliveryFee);
     }
 
+    @Override
+    public String getUsedTemplate() {
+        return textLanguages.get(language);
+    }
+
 }

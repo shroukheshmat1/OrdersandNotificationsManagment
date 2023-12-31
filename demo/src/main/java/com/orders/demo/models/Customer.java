@@ -1,16 +1,24 @@
 package com.orders.demo.models;
 
+import com.orders.demo.models.Template.Language;
+
 public class Customer {
     private String name;
     private double balance;
     private String email;
-    private String password;
+    private String phoneNumber;
 
-    public Customer(String name, String email, String password, double balance) {
+    private String password;
+    private Language preferredLanguge;
+
+    public Customer(String name, String email, String phoneNumber, String password, double balance,
+            Language preferredLanguage) {
         this.name = name;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.password = password;
         this.balance = balance;
+        this.preferredLanguge = preferredLanguage;
     }
 
     public String getName() {
@@ -32,5 +40,13 @@ public class Customer {
     public String getPassword() {
         return password;
 
+    }
+
+    public Language getPreferredLanguage() {
+        return preferredLanguge;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 }

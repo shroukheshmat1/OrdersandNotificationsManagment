@@ -2,6 +2,7 @@ package com.orders.demo.DB;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import com.orders.demo.models.Category;
@@ -48,5 +49,9 @@ public interface IDB {
     void addPlacementTime(int orderId, Date date);
 
     void addShippingTime(int orderId, Date date);
+
+    Map<String, Integer> getTemplateCounter();
+
+    Map<String, Integer> getContactCounter();
 
 }

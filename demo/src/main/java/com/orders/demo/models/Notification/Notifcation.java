@@ -5,6 +5,10 @@ import com.orders.demo.models.Template.Template;
 public abstract class Notifcation {
     Template template;
 
+    public Template getTemplate() {
+        return template;
+    }
+
     public Notifcation(Template template) {
         this.template = template;
     }

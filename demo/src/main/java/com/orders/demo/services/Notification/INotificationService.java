@@ -1,5 +1,6 @@
 package com.orders.demo.services.Notification;
 
+import java.util.Map;
 import java.util.Queue;
 
 import org.springframework.stereotype.Service;
@@ -14,4 +15,6 @@ public interface INotificationService {
     Queue<Notifcation> getNotifications();
 
     void scheduledSendingTask();
+
+    Map<String, String> getStats();
 }
